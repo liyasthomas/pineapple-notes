@@ -1,0 +1,148 @@
+<!doctype html>
+<!--
+	Pineapple 🍍
+
+	Made by: Liyas Thomas
+
+	Copyright (c) Liyas Thomas (https://liyas-thomas.firebaseapp.com)
+	ALL RIGHTS RESERVED, ALL WRONGS RESERVED
+
+	Permission is hereby granted, free of charge, to any person obtaining a copy of
+	this software and associated documentation files (the "Software"), to deal in
+	the Software without restriction, including without limitation the rights to
+	use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies
+	of the Software, and to permit persons to whom the Software is furnished to do
+	so, subject to the following conditions:
+
+	The above copyright notice and this permission notice shall be included in all
+	copies or substantial portions of the Software.
+
+	THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+	IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+	FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+	AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+	LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+	OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+	SOFTWARE.
+-->
+<html>
+  <head>
+  	<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no">
+		<title>Pineapple 🍍 Notes by Liyas Thomas</title>
+		<meta name="description" content="A simple, clean note app">
+		<link rel="icon" href="bower_components/note-app-elements/images/icon-4x.png">
+		<link rel="manifest" href="manifest.json">
+		<meta name="theme-color" content="#607D8B">
+		<meta name="mobile-web-app-capable" content="yes">
+		<meta name="application-name" content="Pineapple 🍍">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="#607D8B">
+		<meta name="apple-mobile-web-app-title" content="Pineapple 🍍">
+		<link rel="apple-touch-icon" href="bower_components/note-app-elements/images/icon-4x.png">
+		<meta name="msapplication-TileImage" content="bower_components/note-app-elements/images/icon-4x.png">
+		<meta name="msapplication-TileColor" content="#607D8B">
+		<meta name="msapplication-tap-highlight" content="no">
+		<meta property="og:site_name" content="Pineapple 🍍">
+		<meta property="og:url" content="https://liyas-thomas.firebaseapp.com">
+		<meta property="og:type" content="website">
+		<meta property="og:title" content="Pineapple 🍍">
+		<meta property="og:description" content="A simple, clean note app">
+		<meta property="og:image" content="bower_components/note-app-elements/images/icon-4x.png">
+		<meta name="twitter:site" content="@liyasthomas">
+		<meta name="twitter:card" content="summary">
+		<meta name="twitter:title" content="Pineapple 🍍">
+		<meta name="twitter:description" content="A simple, clean note app">
+		<meta name="twitter:image" content="bower_components/note-app-elements/images/icon-4x.png">
+		<meta name="twitter:url" content="https://liyas-thomas.firebaseapp.com">
+		<link href='https://fonts.googleapis.com/css?family=Product+Sans' rel='stylesheet'>
+		<link href="https://fonts.googleapis.com/css?family=Roboto+Slab" rel="stylesheet">
+		<script src="bower_components/webcomponentsjs/webcomponents-lite.js"></script>
+		<script src="bower_components/web-animations-js/web-animations.min.js"></script>
+		<link rel="import" href="bower_components/platinum-sw/platinum-sw-elements.html">
+		<link rel="import" href="bower_components/polymerfire/firebase-app.html">
+		<link rel="import" href="note-app.html">
+    <style>
+      body {
+				margin: 0;
+				padding: 0;
+				font-family: 'Product Sans', 'Roboto', 'Noto', sans-serif;
+				font-size: 18px;
+				line-height: 1.5;
+				color: rgba(0,0,0,.87);
+				background-color: #fff;
+				text-rendering: optimizeLegibility;
+				-webkit-font-smoothing: antialiased;
+				font-smoothing: antialiased;
+				-webkit-touch-callout: none;
+				-webkit-user-select: none;
+				-khtml-user-select: none;
+				-moz-user-select: none;
+				-ms-user-select: none;
+				-o-user-select: none;
+				user-select: none;
+      }
+			#preloader {
+				height: 100%;
+				width: 100%;
+				z-index: 1000;
+				background: #607D8B;
+				color: #EAEEF0;
+				font-size: 4em;
+				position: fixed;
+				display: flex;
+				text-align: center;
+				flex-direction: column;
+				align-items: center;
+				justify-content: center;
+				transition: all .2s 0s linear,right .2s .3s ease-out;
+				animation: color-flip 6.5s .6s infinite linear;
+			}
+			.logo {
+				animation: rotate360 1.3s infinite ease;
+			}
+			@keyframes rotate360 {
+				0% { transform: rotate(0deg) }
+				20% { transform: rotate(-45deg) }
+				100% { transform: rotate(360deg) }
+			}
+			@keyframes color-flip {
+				0%,18%,100% { background-color: #607D8B }
+				20%,38% { background-color: #56BC8A }
+				40%,58% { background-color: #4AA8D8 }
+				60%,78% { background-color: #AC7EBE }
+				80%,98% { background-color: #F2992E }
+			}
+			::selection {
+				background-color: #69f0ae;
+			}
+			::-moz-selection {
+				background-color: #69f0ae;
+			}
+		</style>
+  </head>
+  <body>
+		<platinum-sw-register
+				auto-register
+				skip-waiting
+				clients-claim
+				reload-on-install
+				href="sw-import.js">
+			<platinum-sw-cache
+					default-cache-strategy="networkFirst">
+			</platinum-sw-cache>
+		</platinum-sw-register>
+		<firebase-app
+				name="notes"
+				api-key="AIzaSyD8J1ouITUotj2Y6euASx_PBRpqFVhMTeg"
+				auth-domain="pineapple-notes.firebaseapp.com"
+				database-url="https://pineapple-notes.firebaseio.com">
+		</firebase-app>
+		<note-app>
+			<div id="preloader">
+				<div class="logo">🍍</div>
+			</div>
+		</note-app>
+  </body>
+</html>

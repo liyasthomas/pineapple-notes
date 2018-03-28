@@ -1,0 +1,106 @@
+<link rel="import" href="bower_components/note-app-elements/na-elements.html">
+<link rel="import" href="bower_components/app-storage/app-indexeddb-mirror/app-indexeddb-mirror.html">
+<link rel="import" href="bower_components/polymerfire/polymerfire.html">
+
+<dom-module id="note-app">
+  <template>
+    <style include="note-app-shared-styles"></style>
+		<na-login
+				on-sign-in="signIn"
+				signed-in="[[signedIn]]"
+				disabled="[[!online]]">
+		</na-login>
+		<na-toolbar
+				signed-in="[[signedIn]]"
+				on-sign-out="signOut">
+		</na-toolbar>
+		<firebase-auth
+				id="auth"
+				app-name="notes"
+				provider="google"
+				signed-in="{{signedIn}}"
+				user="{{user}}">
+		</firebase-auth>
+		<firebase-query
+				id="query"
+				app-name="notes"
+				path="/notes/[[user.uid]]"
+				data="{{notes}}">
+		</firebase-query>
+		<app-indexeddb-mirror
+				session="[[user.uid]]"
+				key="notes"
+				data="{{notes}}"
+				persisted-data="{{persistedNotes}}">
+		</app-indexeddb-mirror>
+		<paper-icon-button
+				title="Grid / List"
+				hidden="[[!signedIn]]"
+				id="ui"
+				toggles
+				active="{{UI}}"
+				icon$="[[getUIIcon(UI)]]">
+		</paper-icon-button>
+		<div class$="[[getUIType(UI)]] notes">
+			<template is="dom-repeat" items="[[persistedNotes]]" as="note">
+				<na-note
+						class="box"
+						id$="[[note.$key]]"
+						title="[[note.title]]"
+						body="[[note.body]]"
+						on-tap="edit">
+				</na-note>
+			</template>
+			<div class="footer">
+				<a href="https://liyas-thomas.firebaseapp.com" title="Info" target="_blank"><iron-icon icon="info-outline"></iron-icon></a>
+			</div>
+		</div>
+		<paper-fab
+				icon="create"
+				on-tap="create"
+				disabled="[[!online]]">
+		</paper-fab>
+		<firebase-document
+				id="document"
+				app-name="notes"
+				path="[[editableNoteId]]"
+				data="{{editableNote}}">
+		</firebase-document>
+		<na-editor
+				id="editor"
+				note="{{editableNote}}"
+				on-close="commitChange">
+		</na-editor>
+  </template>
+	<script>
+    Polymer({
+      is: 'note-app',
+
+			getUIType: function (UI) {
+				return UI ? 'list' : 'grid';
+			},
+
+			getUIIcon: function(icon) {
+				return icon ? 'dashboard' : 'view-agenda';
+			},
+
+			behaviors: [Polymer.NoteAppBehavior],
+
+			signIn: function() {
+				this.$.auth.signInWithPopup();
+			},
+
+			get notesPath() {
+				return '/notes/' + this.user.uid;
+			},
+
+			toEditableId: function(noteId) {
+				return this.notesPath + '/' + noteId;
+			},
+
+			get isEditable() {
+				return this.online;
+			}
+    });
+  </script>
+</dom-module>

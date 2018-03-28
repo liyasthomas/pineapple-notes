@@ -1,0 +1,74 @@
+<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../iron-meta/iron-meta.html">
+
+<script>
+  Polymer.IronValidatableBehaviorMeta = null;
+
+  Polymer.IronValidatableBehavior = {
+
+    properties: {
+      /**
+       * Name of the validator to use.
+       */
+      validator: {
+        type: String
+      },
+
+      /**
+       * True if the last call to `validate` is invalid.
+       */
+      invalid: {
+        notify: true,
+        reflectToAttribute: true,
+        type: Boolean,
+        value: false,
+        observer: '_invalidChanged'
+      },
+    },
+
+    registered: function() {
+      Polymer.IronValidatableBehaviorMeta = new Polymer.IronMeta({type: 'validator'});
+    },
+
+    _invalidChanged: function() {
+      if (this.invalid) {
+        this.setAttribute('aria-invalid', 'true');
+      } else {
+        this.removeAttribute('aria-invalid');
+      }
+    },
+
+    /* Recompute this every time it's needed, because we don't know if the
+     * underlying IronValidatableBehaviorMeta has changed. */
+    get _validator() {
+      return Polymer.IronValidatableBehaviorMeta &&
+          Polymer.IronValidatableBehaviorMeta.byKey(this.validator);
+    },
+
+    /**
+     * @return {boolean} True if the validator `validator` exists.
+     */
+    hasValidator: function() {
+      return this._validator != null;
+    },
+
+    validate: function(value) {
+      // If this is an element that also has a value property, and there was
+      // no explicit value argument passed, use the element's property instead.
+      if (value === undefined && this.value !== undefined)
+        this.invalid = !this._getValidity(this.value);
+      else
+        this.invalid = !this._getValidity(value);
+      return !this.invalid;
+    },
+
+
+    _getValidity: function(value) {
+      if (this.hasValidator()) {
+        return this._validator.validate(value);
+      }
+      return true;
+    }
+  };
+
+</script>

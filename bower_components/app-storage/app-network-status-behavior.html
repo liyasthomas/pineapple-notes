@@ -1,0 +1,47 @@
+<link rel="import" href="../polymer/polymer.html">
+<script>
+  (function() {
+    'use strict';
+
+    var networkStatusSubscribers = [];
+
+    function notifySubscribers() {
+      for (var i = 0; i < networkStatusSubscribers.length; ++i) {
+        networkStatusSubscribers[i].refreshNetworkStatus();
+      }
+    }
+
+    window.addEventListener('online', notifySubscribers);
+    window.addEventListener('offline', notifySubscribers);
+
+    Polymer.AppNetworkStatusBehavior = {
+      properties: {
+        online: {
+          type: Boolean,
+          readOnly: true,
+          notify: true,
+          value: function() {
+            return window.navigator.onLine;
+          }
+        }
+      },
+
+      attached: function() {
+        networkStatusSubscribers.push(this);
+        this.refreshNetworkStatus();
+      },
+
+      detached: function() {
+        var index = networkStatusSubscribers.indexOf(this);
+        if (index < 0) {
+          return;
+        }
+        networkStatusSubscribers.splice(index, 1);
+      },
+
+      refreshNetworkStatus: function() {
+        this._setOnline(window.navigator.onLine);
+      }
+    };
+  })();
+</script>

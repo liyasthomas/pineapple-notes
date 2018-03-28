@@ -1,0 +1,114 @@
+<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../iron-icons/communication-icons.html">
+
+<dom-module id="na-login">
+  <template>
+    <style>
+      :host {
+        position: absolute;
+        z-index: 10;
+        top: 0;
+        left: 0;
+        right: 0;
+				bottom: 0;
+				background-color: #fff;
+        transition: opacity 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        --paper-fab-background: var(--paper-pink-a200);
+				--paper-fab-keyboard-focus-background: var(--paper-pink-a200);
+      }
+      :host([signed-in]) {
+        opacity: 0;
+        pointer-events: none;
+      }
+			.banner {
+        position: relative;
+				z-index: 1;
+        top: 0;
+        left: 0;
+        right: 0;
+				height: 60vh;
+				padding: 24px;
+        background-color: var(--primary-color);
+				color: #fff;
+				@apply(--shadow-elevation-3dp);
+				@apply(--layout-horizontal);
+				@apply(--layout-center);
+			}
+			.caption {
+				position: relative;
+				height: calc(40vh - 56px);
+				@apply(--layout-horizontal);
+				@apply(--layout-center-center);
+				color: #C2C2C2;
+			}
+			paper-fab {
+				position: absolute;
+				z-index: 2;
+				right: 10vw;
+				bottom: -28px;
+				@apply(--shadow-elevation-4dp);
+				color: #fff;
+				--paper-icon-button-ink-color: #fff;
+				transition: all 0.1s;
+				transform: scale(1.1);
+			}
+			paper-fab:hover {
+				transform: scale(1.2);
+				@apply(--shadow-elevation-6dp);
+			}
+			h1 {
+				font-weight: normal;
+				font-size: 5em;
+				margin: 0;
+			}
+      @media (max-width: 600px) {
+				h1 {
+					font-size: 64px;
+				}
+			}
+			[hidden] {
+				visibility: hidden !important;
+			}
+    </style>
+    <div class="banner">
+    	<div><h1>Pineapple</h1></div>
+    	<paper-fab icon="communication:vpn-key" on-tap="signIn" disabled="[[disabled]]"></paper-fab>
+    </div>
+		<div class="caption" hidden$="[[online]]">
+			<iron-icon icon="communication:stay-primary-portrait"></iron-icon>
+			<iron-icon icon="remove"></iron-icon>
+			<iron-icon icon="remove"></iron-icon>
+			<iron-icon icon="close"></iron-icon>
+			<iron-icon icon="remove"></iron-icon>
+			<iron-icon icon="remove"></iron-icon>
+			<iron-icon icon="cloud"></iron-icon>
+		</div>
+  </template>
+  <script>
+    Polymer({
+      is: 'na-login',
+
+      behaviors: [
+        Polymer.AppNetworkStatusBehavior
+      ],
+
+      properties: {
+        disabled: {
+          type: Boolean,
+          reflectToAttribute: true,
+          value: false
+        },
+
+        signedIn: {
+          type: Boolean,
+          reflectToAttribute: true,
+          value: false
+        }
+      },
+
+      signIn: function() {
+        this.fire('sign-in', null, { bubbles: false });
+      }
+    });
+  </script>
+</dom-module>

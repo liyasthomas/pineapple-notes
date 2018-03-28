@@ -1,0 +1,60 @@
+<link rel="import" href="../polymer/polymer.html">
+
+<dom-module id="na-toolbar">
+  <template>
+    <style>
+      :host {
+        @apply(--layout-fit);
+        @apply(--layout-horizontal);
+        @apply(--layout-center);
+				position: fixed;
+				z-index: 3;
+				height: 64px;
+				@apply(--shadow-elevation-3dp);
+				padding: 0 0 0 12px;
+        background-color: var(--primary-color);
+				color: #fff;
+				--paper-icon-button-ink-color: #fff;
+        --paper-icon-button-disabled: {
+					display: none;
+        };
+      }
+      span {
+        font-size: 26px;
+        flex-grow: 1;
+      }
+      paper-icon-button {
+        margin: 0 8px;
+      }
+    </style>
+		<span>🍍</span>
+    <paper-icon-button icon="[[computeLockIcon(signedIn)]]" disabled="[[!signedIn]]" on-tap="lock" title="Log out"></paper-icon-button>
+    <paper-icon-button icon="cloud" hidden$="[[!online]]" title="Online"></paper-icon-button>
+    <paper-icon-button icon="cloud-off" hidden$="[[online]]" title="Offline"></paper-icon-button>
+  </template>
+	<script>
+    Polymer({
+      is: 'na-toolbar',
+
+      behaviors: [
+        Polymer.AppNetworkStatusBehavior
+      ],
+
+      properties: {
+        signedIn: {
+          type: Boolean,
+          notify: true,
+          value: false
+        }
+      },
+
+      computeLockIcon: function(signedIn) {
+        return signedIn ? 'communication:vpn-key' : 'lock-open';
+      },
+
+      lock: function() {
+        this.fire('sign-out');
+      }
+    });
+  </script>
+</dom-module>

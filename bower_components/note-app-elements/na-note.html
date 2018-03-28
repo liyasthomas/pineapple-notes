@@ -1,0 +1,131 @@
+<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../iron-input/iron-input.html">
+<link rel="import" href="../iron-autogrow-textarea/iron-autogrow-textarea.html">
+
+<dom-module id="na-note">
+  <template>
+    <style>
+      :host {
+        display: block;
+        box-sizing: border-box;
+        background-color: var(--primary-light-color);
+        color: var(--primary-text-color);
+        padding: 24px;
+				border-radius: 4px;
+        --iron-autogrow-textarea: {
+          white-space: pre-wrap;
+        }
+      }
+      iron-autogrow-textarea {
+        display: block;
+        box-sizing: border-box;
+        width: 100%;
+        border: 0;
+        margin-top: 16px;
+        padding: 0;
+        font-size: 16px;
+        color: var(--secondary-text-color);
+				font-family: 'Roboto Slab', serif;
+      }
+      .hidden {
+        display: none;
+      }
+      h1 {
+        font-size: 24px;
+				font-weight: normal;
+        margin: 0;
+        white-space: pre-wrap;
+      }
+      h1:not(.hidden)+p {
+        margin-top: 16px;
+      }
+      p {
+        margin: 0;
+        font-size: 16px;
+        white-space: pre-wrap;
+        color: var(--secondary-text-color);
+				font-family: 'Roboto Slab', serif;
+      }
+      .empty {
+        font-style: italic;
+        color: var(--secondary-text-color);
+        line-height: 0;
+        pointer-events: none;
+      }
+      input {
+        display: block;
+        box-sizing: border-box;
+        width: 100%;
+        margin: 0;
+        outline: none;
+        border: 0;
+        background: transparent;
+        white-space: pre-wrap;
+				font-family: inherit;
+        font-size: 24px;
+        color: var(--primary-text-color);
+      }
+			iron-input {
+				width: 100%;
+			}
+			paper-ripple {
+				color: rgba(0,0,0,.2);
+			}
+    </style>
+    <template is="dom-if" if="[[editable]]">
+      <iron-input bind-value="{{title}}">
+        <input is="iron-input" placeholder="Title" bind-value="{{title}}" autofocus="">
+      </iron-input>
+      <iron-autogrow-textarea placeholder="Note" bind-value="{{body}}">
+      </iron-autogrow-textarea>
+    </template>
+    <template is="dom-if" if="[[!editable]]">
+      <h1 class$="[[emptyClass(title)]]">[[title]]</h1>
+      <p class$="[[emptyClass(body)]]">[[body]]</p>
+      <paper-ripple></paper-ripple>
+    </template>
+  </template>
+  <script>
+    Polymer({
+      is: 'na-note',
+
+      properties: {
+        editable: {
+          type: Boolean,
+          reflectToAttribute: true,
+          value: false
+        },
+
+        title: {
+          type: String,
+          notify: true,
+          value: ''
+        },
+
+        body: {
+          type: String,
+          notify: true,
+          value: ''
+        },
+
+        lastUpdated: {
+          type: Number,
+          value: 0
+        }
+      },
+
+      emptyClass: function(content) {
+        return !content ? 'hidden' : '';
+      },
+
+      propertiesAreEmpty: function() {
+        for (var i = 0; i < arguments.length; ++i) {
+          if (arguments[i]) {
+            return false;
+          }
+        }
+        return true;
+      }
+    })
+  </script>
+</dom-module>

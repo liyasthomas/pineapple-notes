@@ -1,0 +1,111 @@
+<link rel="import" href="../../polymer/polymer.html">
+<link rel="import" href="../app-storage-behavior.html">
+<link rel="import" href="../app-network-status-behavior.html">
+<link rel="import" href="app-indexeddb-mirror-client.html">
+
+<dom-module id="app-indexeddb-mirror">
+  <script>
+    (function() {
+      'use strict';
+
+      Polymer({
+        is: 'app-indexeddb-mirror',
+
+        behaviors: [
+          Polymer.AppStorageBehavior,
+          Polymer.AppNetworkStatusBehavior
+        ],
+
+        properties: {
+          key: {
+            type: String,
+            value: 'app-mirror-default-key'
+          },
+
+          session: {
+            type: String
+          },
+
+          workerUrl: {
+            type: String,
+            value: function() {
+              return this.resolveUrl('./app-indexeddb-mirror-worker.js');
+            }
+          },
+
+          client: {
+            type: Object,
+            computed: '__computeClient(workerUrl)',
+            observer: '__clientChanged'
+          },
+
+          persistedData: {
+            type: Object,
+            notify: true
+          }
+        },
+
+        observers: [
+          '__updatePersistedData(client, key, session, online)',
+          '__updatePersistedData(data.*)',
+        ],
+
+        get isNew() {
+          return false;
+        },
+
+        destroy: function() {
+          return this.client.transaction('set', this.key, null);
+        },
+
+        setStoredValue: function(path, value) {
+          if (this.online) {
+            return this.client.transaction('set', this.key, this.data);
+          }
+
+          return Promise.resolve();
+        },
+
+        getStoredValue: function(path) {
+          return this.client.transaction('get', this.key);
+        },
+
+        initializeStoredValue: function() {
+          return Promise.resolve();
+        },
+
+        __clientChanged: function(client) {
+          this._enqueueTransaction(function() {
+            return client.connect();
+          });
+        },
+
+        __computeClient: function(workerUrl) {
+          return new Polymer.AppIndexedDBMirrorClient(workerUrl);
+        },
+
+        __updatePersistedData: function() {
+          this._log('Updating persisted data..');
+          this._enqueueTransaction(function() {
+            return this.client.validateSession(this.session);
+          });
+
+          if (this.online) {
+            this.persistedData = this.data;
+            this.linkPaths('data', 'persistedData');
+          } else {
+            this.unlinkPaths('data');
+            this._enqueueTransaction(function() {
+              return this.getStoredValue().then(function(value) {
+                if (this.online || !this.client.supportsMirroring) {
+                  return;
+                }
+                this.persistedData = value;
+              }.bind(this));
+            });
+          }
+        }
+      });
+    })();
+  </script>
+</dom-module>

@@ -1,0 +1,268 @@
+<link rel="import" href="../polymer/polymer.html">
+<script>
+  (function() {
+    'use strict';
+
+    var SPLICES_RX = /\.splices$/;
+    var LENGTH_RX = /\.length$/;
+    var NUMBER_RX = /\.?#?([0-9]+)$/;
+
+    Polymer.AppStorageBehavior = {
+      properties: {
+        data: {
+          type: Object,
+          notify: true,
+          value: function() {
+            return this.zeroValue;
+          }
+        },
+
+        sequentialTransactions: {
+          type: Boolean,
+          value: false
+        },
+
+        log: {
+          type: Boolean,
+          value: false
+        }
+      },
+
+      observers: [
+        '__dataChanged(data.*)'
+      ],
+
+      created: function() {
+        this.__initialized = false;
+        this.__syncingToMemory = false;
+        this.__initializingStoredValue = null;
+        this.__transactionQueueAdvances = Promise.resolve();
+      },
+
+      ready: function() {
+        this._initializeStoredValue();
+      },
+
+      get isNew() {
+        return true;
+      },
+
+      get transactionsComplete() {
+        return this.__transactionQueueAdvances;
+      },
+
+      get zeroValue() {
+        return undefined;
+      },
+
+      saveValue: function(args) {
+        return Promise.resolve();
+      },
+
+      reset: function() {},
+
+      destroy: function() {
+        this.data = this.zeroValue;
+        return this.saveValue();
+      },
+
+      initializeStoredValue: function() {
+        if (this.isNew) {
+          return Promise.resolve();
+        }
+
+        return this._getStoredValue('data').then(function(data) {
+          this._log('Got stored value!', data, this.data);
+          if (data == null) {
+            return this._setStoredValue(
+                'data', this.data || this.zeroValue);
+          } else {
+            this.syncToMemory(function() {
+              this.set('data', data);
+            });
+          }
+        }.bind(this));
+      },
+
+      getStoredValue: function(storagePath) {
+        return Promise.resolve();
+      },
+
+      setStoredValue: function(storagePath, value) {
+        return Promise.resolve(value);
+      },
+
+      memoryPathToStoragePath: function(path) {
+        return path;
+      },
+
+      storagePathToMemoryPath: function(path) {
+        return path;
+      },
+
+      syncToMemory: function(operation) {
+        if (this.__syncingToMemory) {
+          return;
+        }
+
+        this._group('Sync to memory.');
+
+        this.__syncingToMemory = true;
+        operation.call(this);
+        this.__syncingToMemory = false;
+
+        this._groupEnd('Sync to memory.');
+      },
+
+      valueIsEmpty: function(value) {
+        if (Array.isArray(value)) {
+          return value.length === 0;
+        } else if (Object.prototype.isPrototypeOf(value)) {
+          return Object.keys(value).length === 0;
+        } else {
+          return value == null;
+        }
+      },
+
+      _getStoredValue: function(path) {
+        return this.getStoredValue(this.memoryPathToStoragePath(path));
+      },
+
+      _setStoredValue: function(path, value) {
+        return this.setStoredValue(this.memoryPathToStoragePath(path), value);
+      },
+
+      _enqueueTransaction: function(transaction) {
+        if (this.sequentialTransactions) {
+          transaction = transaction.bind(this);
+        } else {
+          var result = transaction.call(this);
+          transaction = function() {
+            return result;
+          };
+        }
+
+        return this.__transactionQueueAdvances = this.__transactionQueueAdvances
+            .then(transaction)
+            .catch(function(error) {
+              this._error('Error performing queued transaction.', error);
+            }.bind(this));
+      },
+
+      _log: function() {
+        if (this.log) {
+          console.log.apply(console, arguments);
+        }
+      },
+
+      _error: function() {
+        if (this.log) {
+          console.error.apply(console, arguments);
+        }
+      },
+
+      _group: function() {
+        if (this.log) {
+          console.group.apply(console, arguments);
+        }
+      },
+
+      _groupEnd: function() {
+        if (this.log) {
+          console.groupEnd.apply(console, arguments);
+        }
+      },
+
+      _initializeStoredValue: function() {
+        if (this.__initializingStoredValue) {
+          return;
+        }
+
+        this._group('Initializing stored value.');
+
+        var initializingStoredValue =
+            this.__initializingStoredValue =
+            this.initializeStoredValue().then(function() {
+              this.__initialized = true;
+              this.__initializingStoredValue = null;
+              this._groupEnd('Initializing stored value.');
+            }.bind(this));
+
+        return this._enqueueTransaction(function() {
+          return initializingStoredValue;
+        });
+      },
+
+      __dataChanged: function(change) {
+        if (this.isNew ||
+            this.__syncingToMemory ||
+            !this.__initialized ||
+            this.__pathCanBeIgnored(change.path)) {
+          return;
+        }
+
+        var path = this.__normalizeMemoryPath(change.path);
+        var value = change.value;
+        var indexSplices = value && value.indexSplices;
+
+        this._enqueueTransaction(function() {
+
+          this._log('Setting', path + ':', indexSplices || value);
+
+          if (indexSplices && this.__pathIsSplices(path)) {
+            path = this.__parentPath(path);
+            value = this.get(path);
+          }
+
+          return this._setStoredValue(path, value);
+        });
+      },
+
+      __normalizeMemoryPath: function(path) {
+        var parts = path.split('.');
+        var parentPath = [];
+        var currentPath = [];
+        var normalizedPath = [];
+        var index;
+
+        for (var i = 0; i < parts.length; ++i) {
+          currentPath.push(parts[i]);
+          if (/^#/.test(parts[i])) {
+            normalizedPath.push(
+                this.get(parentPath).indexOf(this.get(currentPath)));
+          } else {
+            normalizedPath.push(parts[i]);
+          }
+          parentPath.push(parts[i]);
+        }
+
+        return normalizedPath.join('.');
+      },
+
+      __parentPath: function(path) {
+        var parentPath = path.split('.');
+        return parentPath.slice(0, parentPath.length - 1).join('.');
+      },
+
+      __pathCanBeIgnored: function(path) {
+        return LENGTH_RX.test(path) &&
+            Array.isArray(this.get(this.__parentPath(path)));
+      },
+
+      __pathIsSplices: function(path) {
+        return SPLICES_RX.test(path) &&
+            Array.isArray(this.get(this.__parentPath(path)));
+      },
+
+      __pathRefersToArray: function(path) {
+        return (SPLICES_RX.test(path) || LENGTH_RX.test(path)) &&
+            Array.isArray(this.get(this.__parentPath(path)));
+      },
+
+      __pathTailToIndex: function(path) {
+        var tail = path.split('.').pop();
+        return window.parseInt(tail.replace(NUMBER_RX, '$1'), 10);
+      }
+    };
+  })();
+</script>

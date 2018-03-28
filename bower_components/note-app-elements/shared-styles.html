@@ -1,0 +1,138 @@
+<link rel="import" href="../polymer/polymer.html">
+
+<dom-module id="note-app-shared-styles">
+  <template>
+    <style>
+      :host {
+        --primary-color: #607D8B;
+        --primary-light-color: #fafafa;
+        --primary-dark-color: #fff;
+
+        --accent-color: var(--paper-pink-a200);
+        --accent-light-color: #fff;
+        --accent-dark-color: var(--paper-pink-a200);
+
+        --paper-fab-background: var(--accent-color);
+				--paper-fab-keyboard-focus-background: var(--accent-color);
+
+        --primary-text-color: rgba(0,0,0,.87);
+        --secondary-text-color: rgba(0,0,0,.78);
+
+        display: block;
+        background-color: var(--primary-dark-color);
+        height: 100vh;
+      }
+      .notes {
+				position: fixed;
+				top: 64px;
+				box-sizing: border-box;
+        max-height: calc(100vh - 64px);
+        padding: 24px 12px;
+        overflow: auto;
+      }
+      na-note {
+				position: relative;
+				box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2);
+				max-height: 200px;
+        margin-bottom: 12px;
+				overflow: hidden;
+				transition: all 0.1s;
+				background-color: #fff;
+      }
+      na-note:hover {
+				z-index: 10;
+				box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.2);
+				cursor: pointer;
+			}
+      @media (min-width: 600px) {
+        na-note {
+					max-width: 300px;
+          margin: 12px;
+        }
+        .notes {
+          @apply(--layout-horizontal);
+          @apply(--layout-wrap);
+					@apply(--layout-center-justified);
+        }
+				na-note:hover {
+					transform: scale(1.1);
+				}
+      }
+			paper-fab {
+        position: absolute;
+				@apply(--shadow-elevation-3dp);
+        bottom: 24px;
+        right: 24px;
+				z-index: 6;
+				color: #fff;
+				--paper-icon-button-ink-color: #fff;
+				transition: all 0.1s;
+				transform: scale(1.1);
+			}
+			paper-fab:hover {
+				transform: scale(1.2);
+				@apply(--shadow-elevation-4dp);
+			}
+			.box:nth-child(4n+1) {
+				background-color: var(--paper-yellow-a100);
+			}
+			.box:nth-child(4n+2) {
+				background-color: var(--paper-light-green-a100);
+			}
+			.box:nth-child(4n+3) {
+				background-color: var(--paper-teal-a100);
+			}
+			.box:nth-child(4n+4) {
+				background-color: var(--paper-cyan-a100);
+			}
+			#ui {
+        position: fixed;
+				z-index: 4;
+        top: 12px;
+        right: 120px;
+				color: #EAEEF0;
+			}
+			.grid {
+				-webkit-transition: all .2s;
+				-o-transition: all .2s;
+				transition: all .2s;
+				width: 100%;
+			}
+			.list {
+				-webkit-transition: all .2s;
+				-o-transition: all .2s;
+				transition: all .2s;
+				width: 100vw;
+			}
+			.list.notes {
+				padding: 24px 25vw;
+			}
+			.list na-note {
+				max-height: 100%;
+				max-width: 100%;
+				width: 100%;
+			}
+      @media (max-width: 600px) {
+				.list.notes {
+					padding: 24px 12px;
+				}
+				.list na-note {
+        	margin-bottom: 24px;
+				}
+			}
+			.footer {
+				display: block;
+				padding: 24px;
+				color: #888;
+				font-size: 16px;
+			}
+			a {
+				text-decoration: none;
+				color: #C2C2C2;
+			}
+			a:hover {
+				color: #9E9E9E;
+			}
+    </style>
+  </template>
+</dom-module>
