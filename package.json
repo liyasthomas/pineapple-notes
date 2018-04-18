@@ -1,10 +1,10 @@
 {
-  "name": "form-face",
+  "name": "pineapple-notes",
   "repository": {
     "type": "git",
-    "url": "https://github.com/liyasthomas/form-face.git"
+    "url": "https://github.com/liyasthomas/pineapple-notes.git"
   },
-  "description": "A Google I/O style GIF image maker with ease by Liyas Thomas",
+  "description": "A simple, clean note app by Liyas Thomas",
   "author": "@liyasthomas",
   "version": "1.0.0",
   "devDependencies": {

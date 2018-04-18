@@ -1,5 +1,5 @@
 <div align="center">
-  <a href="https://form-face.firebaseapp.com"><img src="https://raw.githubusercontent.com/liyasthomas/fuse-org/master/images/manifest/icon-512x512.png" alt="Liyas Thomas" width="200"></a>
+  <a href="https://pineapple-notes.firebaseapp.com"><img src="https://raw.githubusercontent.com/liyasthomas/fuse-org/master/images/manifest/icon-512x512.png" alt="Liyas Thomas" width="200"></a>
   <br>
   <h1>Liyas Thomas</h1>
 </div>
@@ -7,16 +7,16 @@
 <div align="center">
   <sub>Built with ❤︎ by
   <a href="https://github.com/liyasthomas">liyasthomas</a> and
-  <a href="https://github.com/liyasthomas/form-face/graphs/contributors">contributors</a>
+  <a href="https://github.com/liyasthomas/pineapple-notes/graphs/contributors">contributors</a>
 	</sub>
 </div>
 
-# Form Face [![Build Status](https://travis-ci.org/liyasthomas/form-face.svg?branch=master)](https://travis-ci.org/liyasthomas/form-face) [![GitHub release](https://img.shields.io/github/release/liyasthomas/form-face.svg)](https://github.com/liyasthomas/form-face/releases/latest) [![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)](https://github.com/liyasthomas/form-face/issues) [![Website](https://img.shields.io/website-up-down-ff69b4-ff69b4/https/shields.io.svg?label=Website)](https://liyas-vr.firebaseapp.com) [![license](https://img.shields.io/github/license/liyasthomas/form-face.svg)](https://github.com/liyasthomas/form-face/blob/master/LICENSE) [![Donate](https://img.shields.io/badge/$-donate-ff69b4.svg)](https://www.paypal.me/liyascthomas)
+# Pineapple 🍍 Notes [![Build Status](https://travis-ci.org/liyasthomas/pineapple-notes.svg?branch=master)](https://travis-ci.org/liyasthomas/pineapple-notes) [![GitHub release](https://img.shields.io/github/release/liyasthomas/pineapple-notes.svg)](https://github.com/liyasthomas/pineapple-notes/releases/latest) [![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)](https://github.com/liyasthomas/pineapple-notes/issues) [![Website](https://img.shields.io/website-up-down-ff69b4-ff69b4/https/shields.io.svg?label=Website)](https://liyas-vr.firebaseapp.com) [![license](https://img.shields.io/github/license/liyasthomas/pineapple-notes.svg)](https://github.com/liyasthomas/pineapple-notes/blob/master/LICENSE) [![Donate](https://img.shields.io/badge/$-donate-ff69b4.svg)](https://www.paypal.me/liyascthomas)
 
-A Google I/O style GIF image maker with ease by [Liyas Thomas](https://github.com/liyasthomas)
+A simple, clean note app by [Liyas Thomas](https://github.com/liyasthomas)
 
 <div align="center">
-  <img src="https://storage.googleapis.com/gd-wagtail-prod-assets/images/ARUX_hero2_2x1.max-4000x2000.jpegquality-90.png" alt="form-face" width="100%">
+  <img src="https://storage.googleapis.com/gd-wagtail-prod-assets/images/ARUX_hero2_2x1.max-4000x2000.jpegquality-90.png" alt="pineapple-notes" width="100%">
   <br>
 </div>
 
@@ -25,7 +25,7 @@ A Google I/O style GIF image maker with ease by [Liyas Thomas](https://github.co
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
 
 <div align="center">
-  <img src="https://storage.googleapis.com/gd-wagtail-prod-assets/original_images/ARUX_inline-option3.jpg" alt="form-face" width="100%">
+  <img src="https://storage.googleapis.com/gd-wagtail-prod-assets/original_images/ARUX_inline-option3.jpg" alt="pineapple-notes" width="100%">
   <br>
 </div>
 
@@ -53,7 +53,7 @@ A step by step series of examples that tell you have to get a development env ru
 End with an example of getting some data out of the system or using it for a little demo
 
 <div align="center">
-  <img src="https://storage.googleapis.com/gd-wagtail-prod-assets/original_images/ARUX_inline2-option1.png" alt="form-face" width="100%">
+  <img src="https://storage.googleapis.com/gd-wagtail-prod-assets/original_images/ARUX_inline2-option1.png" alt="pineapple-notes" width="100%">
   <br>
 </div>
 
@@ -109,11 +109,11 @@ Please read [CONTRIBUTING](CONTRIBUTING.md) for details on our code of conduct, 
 
 ## Continuous Integration
 
-We use [Travis CI](https://travis-ci.com/) for continuous integration. Check out our [Travis CI Status](https://travis-ci.org/liyasthomas/form-face).
+We use [Travis CI](https://travis-ci.com/) for continuous integration. Check out our [Travis CI Status](https://travis-ci.org/liyasthomas/pineapple-notes).
 
 ## Versioning
 
-This project is developed by [Liyas Thomas](https://github.com/liyasthomas). For the versions available, see the [releases on this repository](https://github.com/liyasthomas/form-face/releases). 
+This project is developed by [Liyas Thomas](https://github.com/liyasthomas). For the versions available, see the [releases on this repository](https://github.com/liyasthomas/pineapple-notes/releases). 
 
 ## Authors
 
@@ -129,7 +129,7 @@ This project is developed by [Liyas Thomas](https://github.com/liyasthomas). For
 ### Thanks
 <!--* [Liyas Thomas](https://github.com/liyasthomas)-->
 
-See also the list of [contributors](https://github.com/liyasthomas/form-face/graphs/contributors) who participated in this project.
+See also the list of [contributors](https://github.com/liyasthomas/pineapple-notes/graphs/contributors) who participated in this project.
 
 ## License
 
