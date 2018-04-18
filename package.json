@@ -1,0 +1,16 @@
+{
+  "name": "form-face",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/liyasthomas/form-face.git"
+  },
+  "description": "A Google I/O style GIF image maker with ease by Liyas Thomas",
+  "author": "@liyasthomas",
+  "version": "1.0.0",
+  "devDependencies": {
+    "jshint": "^2.8.0"
+  },
+  "scripts": {
+    "test": "jshint travis.js"
+  }
+}
