@@ -4,7 +4,7 @@
 	"description": "A simple, clean note app",
 	"scope": "/",
 	"start_url": "/",
-	"display": "fullscreen",
+	"display": "standalone",
 	"orientation": "any",
 	"theme_color": "#fff",
 	"background_color": "#fff",
