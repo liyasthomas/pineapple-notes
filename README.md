@@ -2,7 +2,7 @@
 When I wrote this, only God and I understood what I was doing. Now, only God knows.
 ```
 <div align="center">
-  <a href="https://liyas-thomas.firebaseapp.com"><img src="https://raw.githubusercontent.com/liyasthomas/pineapple-notes/master/assets/logo.gif" alt="Liyas Thomas" width="200"></a>
+  <a href="https://liyas-thomas.firebaseapp.com"><img src="https://raw.githubusercontent.com/liyasthomas/templates/master/assets/logo.gif" alt="Liyas Thomas" width="200"></a>
   <br>
   <h1>Liyas Thomas</h1>
   <sub>Built with ❤︎ by
@@ -15,13 +15,13 @@ When I wrote this, only God and I understood what I was doing. Now, only God kno
 
 [![Build Status](https://travis-ci.org/liyasthomas/pineapple-notes.svg?branch=master)](https://travis-ci.org/liyasthomas/pineapple-notes) [![GitHub release](https://img.shields.io/github/release/liyasthomas/pineapple-notes/all.svg)](https://github.com/liyasthomas/pineapple-notes/releases/latest) [![repo size](https://img.shields.io/github/repo-size/liyasthomas/pineapple-notes.svg)](https://github.com/liyasthomas/pineapple-notes/archive/master.zip) [![license](https://img.shields.io/github/license/liyasthomas/pineapple-notes.svg)](https://github.com/liyasthomas/pineapple-notes/blob/master/LICENSE) [![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)](https://github.com/liyasthomas/pineapple-notes/issues) [![Website](https://img.shields.io/website-up-down-green-red/https/shields.io.svg?label=website)](https://liyas-thomas.firebaseapp.com) [![Donate](https://img.shields.io/badge/$-donate-ff69b4.svg)](https://www.paypal.me/liyascthomas)
 
-# <img src="https://raw.githubusercontent.com/liyasthomas/pineapple-notes/master/assets/images/favicon.png" alt="Pineapple Notes" width="32"> Pineapple Notes
+# 🍍 Pineapple Notes
 
 ### A simple, clean note app by [Liyas Thomas](https://github.com/liyasthomas)
 
 <div align="center">
   <br>
-  <img src="https://storage.googleapis.com/gd-wagtail-prod-assets/images/ARUX_hero2_2x1.max-4000x2000.jpegquality-90.png" alt="Templates" width="100%">
+  <img src="icons/screely.png" alt="Pineapple Notes" width="100%">
   <br>
 </div>
 
@@ -39,98 +39,20 @@ When I wrote this, only God and I understood what I was doing. Now, only God kno
 
 ---
 
-## Getting started
+## Demo
 
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
-
-<div align="center">
-  <br>
-  <img src="https://storage.googleapis.com/gd-wagtail-prod-assets/original_images/ARUX_inline-option3.jpg" alt="Templates" width="100%">
-  <br>
-</div>
-
-### Prerequisites
-
-What things you need to install the software and how to install them.
-
-* A device which supports [WebGL](https://caniuse.com/#feat=webgl) and [WebRTC](https://caniuse.com/#feat=stream) with a working camera input
-* Internet connection
-* A web browser
-* [Wonder](https://en.wikipedia.org/wiki/Wonder_(emotion))! :heart:
-
-<div align="center">
-  <br>
-  <img src="https://mixedreality.mozilla.org/static/img/experience/devices.png" alt="Templates" width="100%">
-  <br>
-  <br>
-</div>
-
-### Demo: Try it on mobile :iphone:
-
-It works on all platforms. Android, iOS and Windows phone. It runs on **any browser with [WebGL](https://caniuse.com/#feat=webgl) and [WebRTC](https://caniuse.com/#feat=stream)** (for iOS, you need to update to iOS 11).
-
-Try on your phone in only two easy steps, check it out!
-
-1. Step 1
-2. Step 2
-
-You're done!
-
-<div align="center">
-  <br>
-  <img src="https://storage.googleapis.com/gd-wagtail-prod-assets/original_images/ARUX_inline2-option1.png" alt="Templates" width="100%">
-  <br>
-</div>
-
-### Installing
-
-A step by step series of examples that tell you've to get a development environment running.
-
-1. Download the whole zip/clone the repository.
-2. Unzip and make changes.
-3. Save and deploy to any hosting platforms like Firebase, GitHub pages etc.
-
----
-
-## Running the tests
-
-Explain how to run the automated tests for this system.
-
-### Break down into end to end tests
-
-Explain what these tests test and why.
-
-```
-Will be explained later
-```
-
-### And coding style tests
-
-Explain what these tests test and why.
-
-```
-Will be explained later
-```
-
----
-
-## Deployment
-
-Add additional notes about how to deploy this on a live system.
-
-```
-Will be explained later
-```
+[https://pineapple-notes.firebaseapp.com](https://pineapple-notes.firebaseapp.com/)
 
 ---
 
 ## Built with
 
-* **[Sample](https://www.google.com)** - Sample
-	* [Sample](https://www.google.com) - Sample
+* **[Polymer](https://www.polymer-project.org)**
+	* [Web components](https://www.webcomponents.org)
 * **[Chromium](https://github.com/chromium/chromium)** - Thanks for being so fast!
 * HTML - For the web framework
 * CSS - For styling components
+* JavaScript - For magic!
 
 ---
 
@@ -170,7 +92,7 @@ See the [CHANGELOG](CHANGELOG.md) file for details.
 * [Liyas Thomas](https://github.com/liyasthomas)
 
 ### Thanks
-* [Sample](https://www.google.com) - For [Sample](https://www.google.com)
+* [Google](https://www.google.com) - For [Firebase](https://firebase.google.com)
 
 See the list of [contributors](https://github.com/liyasthomas/pineapple-notes/graphs/contributors) who participated in this project.
 
@@ -186,4 +108,4 @@ This project is licensed under the [MIT License](https://opensource.org/licenses
 
 * Hat tip to anyone who's code was used
 * Inspirations:
-	* [Sample](https://www.google.com)
+	* [Firebase](https://firebase.google.com)
